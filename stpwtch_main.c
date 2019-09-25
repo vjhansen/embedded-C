@@ -31,7 +31,7 @@ ISR(TIMER0_OVF_vect) {
 
 int main(void) {
 	DDRC  = 0xFF;
-	TCCR0 = 1;				// Timer/Counter Control Register
+	TCCR0 = 1;					// Timer/Counter Control Register
 	PORTC = 0xFF;
 	TIMSK =  0x01;			// TOIE0
 	MCUCR = 0b1010;   		// ISC01 og ISC11
