@@ -201,20 +201,28 @@ while(modus == PC) {
 		sendt_data[tx_count++] = 'C';
 		
 			// Bryter 1
-			if((PINB & (1<<0)))		sendt_data[tx_count++] = '0';	
-			else					sendt_data[tx_count++] = '1';
+			if((PINB & (1<<0)))		
+                                sendt_data[tx_count++] = '0';	
+			else					
+                                sendt_data[tx_count++] = '1';
 		
 			// Bryter 2
-			if((PINB & (1<<1)))		sendt_data[tx_count++] = '0';	
-			else					sendt_data[tx_count++] = '1';
+			if((PINB & (1<<1)))     
+                                sendt_data[tx_count++] = '0';	
+			else
+                                sendt_data[tx_count++] = '1';
 		
 			// Bryter 3
-			if((PINB & (1<<2)))		sendt_data[tx_count++] = '0';	
-			else					sendt_data[tx_count++] = '1';
+			if((PINB & (1<<2)))		
+                                sendt_data[tx_count++] = '0';	
+			else					
+                                sendt_data[tx_count++] = '1';
 		
 			// Bryter 4
-			if((PINB & (1<<3)))		sendt_data[tx_count++] = '0';	
-			else					sendt_data[tx_count++] = '1';
+			if((PINB & (1<<3)))		
+                                sendt_data[tx_count++] = '0';	
+			else					
+                                sendt_data[tx_count++] = '1';
 		
 		sendt_data[tx_count++] = linefeed;
 		
