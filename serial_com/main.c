@@ -130,20 +130,28 @@ while (1) {
         }
 		 
     // LED 1 (AV/PÅ)
-    if(C_vect[0] == '0') PORTB&=0b01111111;
-    else 		 PORTB|=0b10000000;
+    if(C_vect[0] == '0') 
+	    PORTB&=0b01111111;
+    else 		 
+	    PORTB|=0b10000000;
 
     // LED 2 (AV/PÅ)
-    if(C_vect[1] == '0') PORTB&=0b10111111;
-    else 		 PORTB|=0b01000000;
+    if(C_vect[1] == '0') 
+	    PORTB&=0b10111111;
+    else 		 
+	    PORTB|=0b01000000;
 		
     // LED 3 (AV/PÅ)
-    if(C_vect[2] == '0') PORTB&=0b11011111;
-    else	         PORTB|=0b00100000;
+    if(C_vect[2] == '0') 
+	    PORTB&=0b11011111;
+    else	         
+	    PORTB|=0b00100000;
 		
     // LED 4 (AV/PÅ)
-    if(C_vect[3] == '0') PORTB&=0b11101111;
-    else 		 PORTB|=0b00010000;
+    if(C_vect[3] == '0') 
+	    PORTB&=0b11101111;
+    else 		 
+	    PORTB|=0b00010000;
 
     // D) - Behandler data for piezo-element
     if(mottatt_data[rx_count] = 'D') {
@@ -160,7 +168,7 @@ while (1) {
     if(D_vect[0] == '1') {
         DDRD |= 0b10000000;
         freq = ((D_vect[1] - '0')*1000) + ((D_vect[2] - '0')*100)
-            +((D_vect[3] - '0')*10)   + (D_vect[4]  - '0');
+            +((D_vect[3] - '0')*10) + (D_vect[4]  - '0');
         OCR2A = freq;
     }
     else if(D_vect[0] == '0') {
@@ -172,69 +180,65 @@ while (1) {
 	
 /**** Sender data til program på PC ****/
 while(modus == PC) {
-    while(sendt_data[tx_count]) {
-        sendt_data[tx_count++] = 0;
-    }
-    tx_count = 0;
+	while(sendt_data[tx_count]) {
+        	sendt_data[tx_count++] = 0;
+    	}
+    	tx_count = 0;
 		
-    // A) - ADC
-    itoa(milli_volt, ADC_array, 10);	// - Printer ut spenning i mV
-    sendt_data[0]= 'A';
-    for(element = 0; element < 4; element++) {
+    	// A) - ADC
+    	itoa(milli_volt, ADC_array, 10);	// - Printer ut spenning i mV
+    	sendt_data[0]= 'A';
+    	for(element = 0; element < 4; element++) {
         sendt_data[++tx_count] = ADC_array[element];
     }
-    sendt_data[++tx_count] = linefeed;
+    	sendt_data[++tx_count] = linefeed;
 		
-    // B) - Fritekst
-    volatile unsigned char fri_tekst[]= "1 Protokoll";		// - Her endres friteksten
-    sendt_data[++tx_count] = 'B';
-    element = 0;
-    tx_count++;
-    while(fri_tekst[element] && element < 17) {
-        sendt_data[tx_count++] = fri_tekst[element++];
-					}
+	// B) - Fritekst
+    	volatile unsigned char fri_tekst[]= "1 Protokoll";		// - Her endres friteksten
+    	sendt_data[++tx_count] = 'B';
+    	element = 0;
+    	tx_count++;
+    	while(fri_tekst[element] && element < 17) {
+        	sendt_data[tx_count++] = fri_tekst[element++];
+	}
+	sendt_data[tx_count++] = linefeed;
+			
+	// C) - DIP-brytere
+	sendt_data[tx_count++] = 'C';
+	// Bryter 1
+	if((PINB & (1<<0)))		
+        	sendt_data[tx_count++] = '0';	
+	else					
+        	sendt_data[tx_count++] = '1';
+		
+	// Bryter 2
+	if((PINB & (1<<1)))     
+        	sendt_data[tx_count++] = '0';	
+	else
+        	sendt_data[tx_count++] = '1';
+		
+	// Bryter 3
+	if((PINB & (1<<2)))		
+        	sendt_data[tx_count++] = '0';	
+	else					
+        	sendt_data[tx_count++] = '1';
+		
+	// Bryter 4
+	if((PINB & (1<<3)))		
+        	sendt_data[tx_count++] = '0';	
+	else					
+        	sendt_data[tx_count++] = '1';
 		sendt_data[tx_count++] = linefeed;
 		
-		
-		// C) - DIP-brytere
-		sendt_data[tx_count++] = 'C';
-		
-			// Bryter 1
-			if((PINB & (1<<0)))		
-                                sendt_data[tx_count++] = '0';	
-			else					
-                                sendt_data[tx_count++] = '1';
-		
-			// Bryter 2
-			if((PINB & (1<<1)))     
-                                sendt_data[tx_count++] = '0';	
-			else
-                                sendt_data[tx_count++] = '1';
-		
-			// Bryter 3
-			if((PINB & (1<<2)))		
-                                sendt_data[tx_count++] = '0';	
-			else					
-                                sendt_data[tx_count++] = '1';
-		
-			// Bryter 4
-			if((PINB & (1<<3)))		
-                                sendt_data[tx_count++] = '0';	
-			else					
-                                sendt_data[tx_count++] = '1';
-		
-		sendt_data[tx_count++] = linefeed;
-		
-		// D) - Adressebryter
-		sendt_data[tx_count++] = 'D';
-			unsigned char bryter = (PINC&0b00001111);
-			sprintf(&sendt_data[tx_count++],"%x",bryter); 	// -  ASCII til HEX "%x"
-		
-			sendt_data[tx_count++] = linefeed;
-			_delay_ms(40);
-			UDR0  = sendt_data[0];
-			cnt   = 1;
-		modus = idle;
-		}	
+	// D) - Adressebryter
+	sendt_data[tx_count++] = 'D';
+	unsigned char bryter = (PINC&0b00001111);
+	sprintf(&sendt_data[tx_count++],"%x",bryter); 	// -  ASCII til HEX "%x"	
+	sendt_data[tx_count++] = linefeed;
+	_delay_ms(40);
+	UDR0  = sendt_data[0];
+	cnt   = 1;
+	modus = idle;
+	}	
 	}
 }
