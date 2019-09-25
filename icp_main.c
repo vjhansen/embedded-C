@@ -3,18 +3,17 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-#define freq (460000/klokke)  // freq er målt frekvens 460000 = 3680000/8
+#define freq (460000/klokke)  // freq er mÃ¥lt frekvens = 460000 = 3680000/8
 
 unsigned int ov_counter;
 unsigned int starting_edge = 0;
 unsigned int ending_edge = 0;
 unsigned int klokke = 0;
 
-// - teller overflow på timer1
+// - teller overflow pÃ¥ timer1
 ISR(TIMER1_OVF_vect) {	
 	++ov_counter;
 }
-
 
 ISR(TIMER1_CAPT_vect) { 	
 	ending_edge = ICR1L;
@@ -24,12 +23,11 @@ ISR(TIMER1_CAPT_vect) {
 	ov_counter = 0;
 }
 	
-
 int main(void) {	
 	DDRC   = 0xFF;		// PORTC = output
 	TCCR1A = 0;			// Funksjon for komparatorer (off)
 	TCCR1B = 0xC2;		// Funksjon for capture og prescaler
-	TIMSK  = 0x24;		// Interrupts på capture og overflow
+	TIMSK  = 0x24;		// Interrupts pÃ¥ capture og overflow
 	sei();				// Enable globalt interrupt
     
     while (1) {
@@ -64,4 +62,3 @@ int main(void) {
 			else PORTC = ~0b00000000;	//Lys av
     };
 }
-
