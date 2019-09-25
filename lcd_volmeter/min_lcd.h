@@ -12,7 +12,6 @@ IDP: Atmel Studio 7.
 #define PIN_RS 		PC1	// - PINC.1 is Registry selector.
 #define PIN_ENABLE 	PC2	// - PINC.2 is Enable.
 
-
 // - Defining instructions for the LCD.
 #define CLEAR_DISP    			0b00000001	// - Clear display.
 #define FUNCTION_SET_INIT_0		0b00110000  	// - 8-bit bus mode. 
@@ -27,7 +26,6 @@ IDP: Atmel Studio 7.
 #define CONTRAST_SET			0b01111000      // - Adjustment contrast.
 #define DISP_ON				0b00001111      // - Entire display ON / Cursor ON / Cursor posistion ON.
 #define ENTRY_MODE 			0b00000110      // - Setter retningen p� cursor og display shift.
-
 
 // - Setter opp kommunikasjon med displayet.
 void enable(){							
