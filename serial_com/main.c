@@ -1,19 +1,11 @@
 /*
-
-~*~*~*~ Oblig. 3 AUT-1001 ~*~*~*~
-
-|| Victor Hansen, AU1 |||| Atle Egeland, AU1  ||
-
-Levert: 04.05.2017
-
 uC: ATmega644A.
 IDP: Atmel Studio 7.
-
 */
 
 #include <avr/io.h>
 #include <stdio.h>
-#include "IncFile1.h"   		// - aka. serlcd.c
+#include "IncFile1.h"
 #include <avr/interrupt.h>		// - Bibliotek for interrupts
 #include <util/delay.h>			// - Bibliotek for _delay_ms
 
