@@ -5,10 +5,9 @@
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 
-volatile unsigned char 	i = 0;
-volatile unsigned char 	run = 1;
-volatile unsigned int 	ovf_counter = 0;
-
+volatile unsigned char i = 0;
+volatile unsigned char run = 1;
+volatile unsigned int ovf_counter = 0;
 
 ISR(INT0_vect) {
 	i = 0;
@@ -20,9 +19,8 @@ ISR(INT1_vect) {
 
 ISR(TIMER0_OVF_vect) {
 	TCNT0 = 72;
-	
 	if(run)	{
-		if(ovf_counter == 19999) {	//20000 interrupts i sekundet..
+		if(ovf_counter == 19999) {	// 20.000 interrupts i sekundet
 			ovf_counter = 0;
 				i++;
 		}
@@ -42,5 +40,4 @@ int main(void) {
 	while(1) {
 		PORTC =~ i;
 	}
-	
 }
