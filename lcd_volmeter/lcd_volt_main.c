@@ -4,7 +4,6 @@ Measured voltages are shown on a LCD.
 Programmet inkluderer 'min_lcd.h' som inneholder funksjoner for LCD-displayet.
 */
 
-
 #define F_CPU 3686400		// - CPU klokkehastighet.
 #include <avr/io.h>
 #include <stdio.h>
@@ -18,7 +17,6 @@ volatile unsigned int max = 1;
 volatile unsigned int min = 0;
 #define rad1 0
 #define rad2 1
-
 
 // ADC Conversion Complete Interrupt.
 ISR(ADC_vect) {
