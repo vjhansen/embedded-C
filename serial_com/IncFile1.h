@@ -1,12 +1,4 @@
-/* 
-~~~~~ Ingen endringer her ~~~~~
-
-Victor Hansen, Atle Egeland
-04.05.2017
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-//FOR DOG 3 x 16
+//For 'DOG 3 x 16'
 //Definerer hvilke registre og pinner som hører til LCD-pinnene CSB, CLK, SI og RS:
 
 #define lcd_csb_port PORTD
@@ -26,7 +18,6 @@ Victor Hansen, Atle Egeland
 #define lcd_rs_pin 4
 
 //Inkluderer delay-funksjoner, kan utelates dersom inkludert andre steder:
-
 #define F_CPU 14745600
 #include <util/delay.h>
 
@@ -262,7 +253,4 @@ void lcd_printnb(char row, char col, char d,long int nb){
 		nb=nb-(tobeprinted*fact);
 		d--;
 	}
-	
-	
-	
 }
