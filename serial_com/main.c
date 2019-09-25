@@ -6,8 +6,8 @@ IDP: Atmel Studio 7.
 #include <avr/io.h>
 #include <stdio.h>
 #include "IncFile1.h"
-#include <avr/interrupt.h>		// - Bibliotek for interrupts
-#include <util/delay.h>			// - Bibliotek for _delay_ms
+#include <avr/interrupt.h>      // - Bibliotek for interrupts
+#include <util/delay.h>		// - Bibliotek for _delay_ms
 
 #define idle	   0
 #define disp_kort  1
@@ -56,7 +56,7 @@ ISR(USART0_RX_vect) {
 // Interrupt ADC 
 ISR(ADC_vect) {
     ADC_data = ADCW;					    // - hold ADCW value
-    milli_volt = (((unsigned long)ADC_data * 5000)/1023);   // - Regner ut 1000 x spenningen
+    milli_volt = (((unsigned long)ADC_data * 5000)/1023);   // - Regner ut 1000x spenningen
     ADCSRA = ADCSRA|0x40;				    // - Starter ny konvertering
 }
 
@@ -102,10 +102,10 @@ while (1) {
             }
             rx_count++;
         }
-    // A) - Printer tekst (linje 1)
+    //- A) - Printer tekst (linje 1)
         lcd_printline(0,0,A_vect);
         
-    // B) - Behandler data for tekstlinje 2
+    //- B) - Behandler data for tekstlinje 2
         if(mottatt_data[rx_count] = 'B') {
             i = 0;
             rx_count++;
@@ -115,11 +115,11 @@ while (1) {
             rx_count++;
         }
 		
-    // B) - Printer klokkeslett (linje 2)
+    //- B) - Printer klokkeslett (linje 2)
         lcd_printline(1,0,B_vect);
         _delay_ms(100);
 		 
-    // C) - Behandler data for LEDs
+    //- C) - Behandler data for LEDs
         if(mottatt_data[rx_count] = 'C') {
             i = 0;
             rx_count++;
@@ -166,7 +166,6 @@ while (1) {
     else if(D_vect[0] == '0') {
         DDRD &=~0b10000000;
     }
-    
     // Bytter nå modus..
     modus = PC;
 }
