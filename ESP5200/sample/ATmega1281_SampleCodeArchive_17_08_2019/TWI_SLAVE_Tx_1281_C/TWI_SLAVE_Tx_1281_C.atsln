@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TWI_SLAVE_Tx_1281_C", "TWI_SLAVE_Tx_1281_C\TWI_SLAVE_Tx_1281_C.cproj", "{002E4E04-2373-460A-A65C-0546A7B1F876}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{002E4E04-2373-460A-A65C-0546A7B1F876}.Debug|AVR.ActiveCfg = Debug|AVR
+		{002E4E04-2373-460A-A65C-0546A7B1F876}.Debug|AVR.Build.0 = Debug|AVR
+		{002E4E04-2373-460A-A65C-0546A7B1F876}.Release|AVR.ActiveCfg = Release|AVR
+		{002E4E04-2373-460A-A65C-0546A7B1F876}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

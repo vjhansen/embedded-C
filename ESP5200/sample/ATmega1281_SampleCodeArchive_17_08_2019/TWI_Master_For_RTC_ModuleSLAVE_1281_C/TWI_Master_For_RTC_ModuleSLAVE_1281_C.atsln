@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TWI_Master_For_RTC_ModuleSLAVE_1281_C", "TWI_Master_For_RTC_ModuleSLAVE_1281_C\TWI_Master_For_RTC_ModuleSLAVE_1281_C.cproj", "{F27B29D9-8305-4F3A-A6A9-E7229B045618}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F27B29D9-8305-4F3A-A6A9-E7229B045618}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F27B29D9-8305-4F3A-A6A9-E7229B045618}.Debug|AVR.Build.0 = Debug|AVR
+		{F27B29D9-8305-4F3A-A6A9-E7229B045618}.Release|AVR.ActiveCfg = Release|AVR
+		{F27B29D9-8305-4F3A-A6A9-E7229B045618}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Small_LCD_FixedMessage_PortsACG_1281_C", "Small_LCD_FixedMessage_PortsACG_1281_C\Small_LCD_FixedMessage_PortsACG_1281_C.cproj", "{DC6E1521-FF9E-4E94-8BB0-7682F79799E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC6E1521-FF9E-4E94-8BB0-7682F79799E6}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DC6E1521-FF9E-4E94-8BB0-7682F79799E6}.Debug|AVR.Build.0 = Debug|AVR
+		{DC6E1521-FF9E-4E94-8BB0-7682F79799E6}.Release|AVR.ActiveCfg = Release|AVR
+		{DC6E1521-FF9E-4E94-8BB0-7682F79799E6}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

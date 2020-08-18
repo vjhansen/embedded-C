@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SystemClockSpeed_ProgrammaticChange_SingleLEDFlash_1281_C", "SystemClockSpeed_ProgrammaticChange_SingleLEDFlash_1281_C\SystemClockSpeed_ProgrammaticChange_SingleLEDFlash_1281_C.cproj", "{935A6BF0-9FD6-48EB-BF8C-EB3E3F87DFFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{935A6BF0-9FD6-48EB-BF8C-EB3E3F87DFFE}.Debug|AVR.ActiveCfg = Debug|AVR
+		{935A6BF0-9FD6-48EB-BF8C-EB3E3F87DFFE}.Debug|AVR.Build.0 = Debug|AVR
+		{935A6BF0-9FD6-48EB-BF8C-EB3E3F87DFFE}.Release|AVR.ActiveCfg = Release|AVR
+		{935A6BF0-9FD6-48EB-BF8C-EB3E3F87DFFE}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SwitchesAndLights_1281_C", "SwitchesAndLights_1281_C\SwitchesAndLights_1281_C.cproj", "{95E10352-AB64-4058-9A84-1BD304FC6659}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95E10352-AB64-4058-9A84-1BD304FC6659}.Debug|AVR.ActiveCfg = Debug|AVR
+		{95E10352-AB64-4058-9A84-1BD304FC6659}.Debug|AVR.Build.0 = Debug|AVR
+		{95E10352-AB64-4058-9A84-1BD304FC6659}.Release|AVR.ActiveCfg = Release|AVR
+		{95E10352-AB64-4058-9A84-1BD304FC6659}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

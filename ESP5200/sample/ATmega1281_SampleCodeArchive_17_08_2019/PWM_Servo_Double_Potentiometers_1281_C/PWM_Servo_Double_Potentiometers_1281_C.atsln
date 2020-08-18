@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PWM_Servo_Double_Potentiometers_1281_C", "PWM_Servo_Double_Potentiometers_1281_C\PWM_Servo_Double_Potentiometers_1281_C.cproj", "{8432B4FA-8CB7-41CD-9209-93FDECFD6953}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8432B4FA-8CB7-41CD-9209-93FDECFD6953}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8432B4FA-8CB7-41CD-9209-93FDECFD6953}.Debug|AVR.Build.0 = Debug|AVR
+		{8432B4FA-8CB7-41CD-9209-93FDECFD6953}.Release|AVR.ActiveCfg = Release|AVR
+		{8432B4FA-8CB7-41CD-9209-93FDECFD6953}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

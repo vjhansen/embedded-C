@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PWM_Motor_NonFeedback_1281_C", "PWM_Motor_NonFeedback_1281_C\PWM_Motor_NonFeedback_1281_C.cproj", "{53A97F1E-F495-4C7A-A322-494DD60177BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53A97F1E-F495-4C7A-A322-494DD60177BB}.Debug|AVR.ActiveCfg = Debug|AVR
+		{53A97F1E-F495-4C7A-A322-494DD60177BB}.Debug|AVR.Build.0 = Debug|AVR
+		{53A97F1E-F495-4C7A-A322-494DD60177BB}.Release|AVR.ActiveCfg = Release|AVR
+		{53A97F1E-F495-4C7A-A322-494DD60177BB}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "USART0_to_ZigBee_SendUserDataToRemoteAtmel_1281_C", "USART0_to_ZigBee_SendUserDataToRemoteAtmel_1281_C\USART0_to_ZigBee_SendUserDataToRemoteAtmel_1281_C.cproj", "{E90B9A9E-9909-4976-977A-60A6E7686622}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E90B9A9E-9909-4976-977A-60A6E7686622}.Debug|AVR.ActiveCfg = Debug|AVR
+		{E90B9A9E-9909-4976-977A-60A6E7686622}.Debug|AVR.Build.0 = Debug|AVR
+		{E90B9A9E-9909-4976-977A-60A6E7686622}.Release|AVR.ActiveCfg = Release|AVR
+		{E90B9A9E-9909-4976-977A-60A6E7686622}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

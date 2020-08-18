@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "RFID_Reader_with_LCD_1281_C", "RFID_Reader_with_LCD_1281_C\RFID_Reader_with_LCD_1281_C.cproj", "{122176EB-418E-4820-8F18-F1E8869254E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{122176EB-418E-4820-8F18-F1E8869254E8}.Debug|AVR.ActiveCfg = Debug|AVR
+		{122176EB-418E-4820-8F18-F1E8869254E8}.Debug|AVR.Build.0 = Debug|AVR
+		{122176EB-418E-4820-8F18-F1E8869254E8}.Release|AVR.ActiveCfg = Release|AVR
+		{122176EB-418E-4820-8F18-F1E8869254E8}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
