@@ -20,7 +20,7 @@ ISR(INT1_vect) {
 ISR(TIMER0_OVF_vect) {
 	TCNT0 = 72;
 	if(run)	{
-		if(ovf_counter == 19999) {	// 20.000 interrupts i sekundet
+		if(ovf_counter == 19999) {	// 20k interrupts i sekundet
 			ovf_counter = 0;
 			i++;
 		}
@@ -42,6 +42,6 @@ int main(void) {
 	sei();
 	
 	while(1) {
-		PORTC =~ i;
+		PORTC = ~i;
 	}
 }
