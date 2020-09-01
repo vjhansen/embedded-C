@@ -6,15 +6,15 @@
 #define lcd_csb_pin 4
 
 #define lcd_clk_port PORTD
-#define lcd_clk_ddr DDRD
+#define lcd_clk_ddr  DDRD
 #define lcd_clk_pin 5
 
 #define lcd_si_port PORTD
-#define lcd_si_ddr	DDRD
+#define lcd_si_ddr  DDRD
 #define lcd_si_pin  6
 
 #define lcd_rs_port PORTC
-#define lcd_rs_ddr DDRC
+#define lcd_rs_ddr  DDRC
 #define lcd_rs_pin 4
 
 // Inkluderer delay-funksjoner, kan utelates dersom inkludert andre steder:
@@ -39,17 +39,17 @@ void lcdinst(unsigned char txb, unsigned char RS){
 		else lcd_si_port &= ~(1<<lcd_si_pin);  strobe();
 	if (txb&64)  lcd_si_port |= (1<<lcd_si_pin); 
 		else lcd_si_port &= ~(1<<lcd_si_pin);  strobe();
-	if (txb&32) lcd_si_port |= (1<<lcd_si_pin); 
+	if (txb&32) lcd_si_port  |= (1<<lcd_si_pin); 
 		else lcd_si_port &= ~(1<<lcd_si_pin);  strobe();
-	if (txb&16) lcd_si_port |= (1<<lcd_si_pin); 
+	if (txb&16) lcd_si_port  |= (1<<lcd_si_pin); 
 		else lcd_si_port &= ~(1 << lcd_si_pin);  strobe();
-	if (txb&8) lcd_si_port |= (1 << lcd_si_pin); 
+	if (txb&8) lcd_si_port   |= (1 << lcd_si_pin); 
 		else lcd_si_port &= ~(1 << lcd_si_pin);  strobe();
-	if (txb&4) lcd_si_port |= (1 << lcd_si_pin); 
+	if (txb&4) lcd_si_port   |= (1 << lcd_si_pin); 
 		else lcd_si_port &= ~(1 << lcd_si_pin);  strobe();
-	if (txb&2) lcd_si_port |= (1 << lcd_si_pin); 
+	if (txb&2) lcd_si_port   |= (1 << lcd_si_pin); 
 		else lcd_si_port &= ~(1 << lcd_si_pin);  strobe();
-	if (txb&1) lcd_si_port |= (1 << lcd_si_pin); 
+	if (txb&1) lcd_si_port   |= (1 << lcd_si_pin); 
 		else lcd_si_port &= ~(1 << lcd_si_pin);  strobe();
 	
 	lcd_csb_port|=(1<<lcd_csb_pin);
@@ -61,21 +61,21 @@ void cgramaddressset(unsigned char cgaddress, unsigned char line){
 }
 
 //funksjon for å sette cursoren på i displayet
-void lcd_cursoron(void){
+void lcd_cursoron(void) {
 	lcdinst(0b00001110, 0);    _delay_us(40);
 }
 
 //og cursor av....
-void lcd_cursoroff(void){
+void lcd_cursoroff(void) {
 	lcdinst(0b00001100, 0);    _delay_us(40);
 }
 
 //en vanvittig lang funksjon for å definere cg-ram'en. Kan gjøres mye enklere.
 void init_cgram(void){
 	int cgaddress,line;
-	for (cgaddress=0;cgaddress<8;cgaddress=cgaddress+1) {
-		for (line=0;line<8;line=line+1) {
-			cgramaddressset(cgaddress,line);
+	for (cgaddress=0; cgaddress < 8; cgaddress=cgaddress+1) {
+		for (line=0; line<8; line=line+1) {
+			cgramaddressset(cgaddress, line);
 			switch(cgaddress){
 				case 0:
 				switch(line){       //æ
@@ -248,12 +248,12 @@ void lcd_printchar (unsigned char a){
 }
 
 //funksjon for å skrive ut tall på plass [row, col]. Tallet har d siffer, og tallet er nb
-void lcd_printnb(char row, char col, char d,long int nb){
+void lcd_printnb(char row, char col, char d, long int nb){
 	char tobeprinted;
 	char i;
 	long int fact;
 	dotpos(row,col);
-	while(d > 0){
+	while(d > 0) {
 		fact=1;
 		for(i=1;i<d;i++)fact=fact*10;
 		tobeprinted=nb/fact;
