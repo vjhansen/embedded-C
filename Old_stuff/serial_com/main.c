@@ -5,9 +5,9 @@ IDP: Atmel Studio 7.
 
 #include <avr/io.h>
 #include <stdio.h>
-#include "IncFile1.h"
-#include <avr/interrupt.h>      // - Bibliotek for interrupts
-#include <util/delay.h>		// - Bibliotek for _delay_ms
+#include "LCD_driver.h"
+#include <avr/interrupt.h>
+#include <util/delay.h>
 
 #define idle	   0
 #define disp_kort  1
@@ -57,7 +57,7 @@ ISR(USART0_RX_vect) {
 ISR(ADC_vect) {
     ADC_data = ADCW;					    // - hold ADCW value
     milli_volt = (((unsigned long)ADC_data * 5000)/1023);   // - Regner ut 1000x spenningen
-    ADCSRA = ADCSRA|0x40;				    // - Starter ny konvertering
+    ADCSRA = ADCSRA|0x40; //0b 01000000   // - Starter ny konvertering
 }
 
 // Interrupt Timer2 
