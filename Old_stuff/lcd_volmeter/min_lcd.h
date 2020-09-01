@@ -25,19 +25,21 @@ IDP: Atmel Studio 7.
 #define FOLLOWER_CONTROL		0b01101100      // - Internal follower curcuit ON.
 #define CONTRAST_SET			0b01111000      // - Adjustment contrast.
 #define DISP_ON				0b00001111      // - Entire display ON / Cursor ON / Cursor posistion ON.
-#define ENTRY_MODE 			0b00000110      // - Setter retningen p� cursor og display shift.
+#define ENTRY_MODE 			0b00000110      // - Cursor direction and display shift.
 
 // - Setter opp kommunikasjon med displayet.
 void enable(){							
-	LCD_PORT &=~ (1<<PIN_ENABLE);	// - Setting Enable to 0.
-	LCD_PORT |=  (1<<PIN_ENABLE);	// - Setting Enable to 1.
+	LCD_PORT &= ~(1 << PIN_ENABLE);	// - Setting Enable to 0.
+	// PORTC  = PORTC & ~(1 << PINC.2)
+	
+	LCD_PORT |=  (1 << PIN_ENABLE);	// - Setting Enable to 1.
 }
 
 // - Writing 8-bit to LCD in two 'parts' (2 x 4-bit).
 void LCD_FULL(unsigned char RS, unsigned char RW, unsigned char data){
 	
 	// - Writing the high nibble first
-	LCD_PORT  = (1<<PIN_ENABLE);						
+	LCD_PORT  = (1 << PIN_ENABLE);	// 01 << 0 -> 0x01, 01 << 1 -> 	10 = 0x02				
 	LCD_PORT |= (data&0xF0)|(RS<<PIN_RS)|(RW<<PIN_RW);  // - Masking and obtaining the 4 MSB.
 	
 	// - Toggling Enable-bit to send data.
@@ -67,7 +69,7 @@ void set_cursor(char row, char column) {
 void lcd_string(unsigned char row, unsigned char column, char *string) {
 	set_cursor(row, column);		// - set row and column for text
 	while(*string) {			// - loop through string									
-		LCD_FULL(1,0,*string++);	// - write to LCD with 'LCD_FULL'.
+		LCD_FULL(1, 0, *string++);	// - write to LCD with 'LCD_FULL'.
 		_delay_us(28);
 	}
 }
