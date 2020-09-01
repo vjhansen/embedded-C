@@ -41,10 +41,12 @@ int main(void) {
 	DDRB = 0xFF;	// Output PORTB
 	DDRD = 0x00;	// Input  PORTC
 	
+	/***********************/
 	TCCR1B = 0xC2;		// Set ICNC1, ICES1 & CS11
 	TIMSK  = 0b00100100; 	// Set TICIE1 & TOIE1
 	MCUCR  = 0b00000010;	// ISC01
 	GICR   = 0b01000000;	// INT0 
+	/***********************/
 	
 	sei();			// Enable interrupts
 	
