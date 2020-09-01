@@ -66,24 +66,28 @@ ISR(TIMER2_OVF_vect) {
 }
  
 int main(void) {
-DDRB   = 0b11110000;
-DDRC   = 0b11110000;
-DDRD   = 0b00000010;	// - Output PD1(TXD)
-PORTB  = 0b00001111;
-PORTC  = 0b00001111;
-UCSR0A = 0b00000000;	// - Init. USART
-UCSR0B = 0b11011000;	// - RXCIE/TXCIE/RXEN/TXEN
-UBRR0  = 0b01011111;	// - Baudrate = 9600bps
-ADMUX  = 0b00000000;	// - ADC Multiplexer Selection Register
-TCCR2A = 0b01000011;	// - COM2A0/WGM21/WGM20
-TCCR2B = 0b00001100;	// - WGM22/CS22
-OCR2A  = 230;		// - Output Compare Register A
-ADCSRA = 0b11001111;	// - Init. ADC
+	DDRB   = 0b11110000;
+	DDRC   = 0b11110000;
+	DDRD   = 0b00000010;	// - Output PD1(TXD)
+	PORTB  = 0b00001111;
+	PORTC  = 0b00001111;
 
-sei();			// - Init. global interrupt
-init_lcd ();		// - Init. display
-modus = idle;
-_delay_ms(50);
+	/***********************/
+	UCSR0A = 0b00000000;	// - Init. USART
+	UCSR0B = 0b11011000;	// - RXCIE/TXCIE/RXEN/TXEN
+	UBRR0  = 0b01011111;	// - Baudrate = 9600bps
+	ADMUX  = 0b00000000;	// - ADC Multiplexer Selection Register
+	TCCR2A = 0b01000011;	// - COM2A0/WGM21/WGM20
+	TCCR2B = 0b00001100;	// - WGM22/CS22
+	OCR2A  = 230;		// - Output Compare Register A
+	ADCSRA = 0b11001111;	// - Init. ADC
+	/***********************/
+
+	sei();			// - Init. global interrupt
+	
+	init_lcd ();		// - Init. display
+	modus = idle;
+	_delay_ms(50);
   
 while (1) {
 	
