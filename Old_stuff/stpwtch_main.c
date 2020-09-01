@@ -22,21 +22,25 @@ ISR(TIMER0_OVF_vect) {
 	if(run)	{
 		if(ovf_counter == 19999) {	// 20.000 interrupts i sekundet
 			ovf_counter = 0;
-				i++;
+			i++;
 		}
-		else
-			ovf_counter++;
+		else	ovf_counter++;
 	}
 }
 
 int main(void) {
 	DDRC  = 0xFF;
-	TCCR0 = 1;					// Timer/Counter Control Register
+	
+	/***********************/
+	TCCR0 = 1;		// Timer/Counter Control Register
 	PORTC = 0xFF;
-	TIMSK =  0x01;			// TOIE0
-	MCUCR = 0b1010;   		// ISC01 og ISC11
-	GICR  = 0b11000000;		// INT1 og INT0
+	TIMSK = 0x01;		// TOIE0
+	MCUCR = 0b1010;   	// ISC01 og ISC11
+	GICR  = 0b11000000;	// INT1 og INT0
+	/***********************/
+	
 	sei();
+	
 	while(1) {
 		PORTC =~ i;
 	}
