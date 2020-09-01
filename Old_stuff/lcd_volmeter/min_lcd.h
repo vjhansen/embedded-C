@@ -30,7 +30,20 @@ IDP: Atmel Studio 7.
 // - Setter opp kommunikasjon med displayet.
 void enable(){							
 	LCD_PORT &= ~(1 << PIN_ENABLE);	// - Setting Enable to 0.
-	// PORTC  = PORTC & ~(1 << PINC.2)
+	/*
+		PORTC  	= PORTC & ~(1 << PINC.2) --> 0b0000 0x00
+			= 0bxxxx xxxx & ~(01b << y), where y = 0 or 1
+			= 0bxxxx xxxx & [~(01b) or ~(10b)]
+			= 0bxxxx xxxx & [(10b) or (01b)]
+	
+			= 0bxxxx xxxx &
+			  0b0000 0010 
+			= 0b0000 00x0
+			
+			= 0bxxxx xxxx &
+			  0b0000 0001
+			= 0b0000 000x
+	*/
 	
 	LCD_PORT |=  (1 << PIN_ENABLE);	// - Setting Enable to 1.
 }
