@@ -25,40 +25,35 @@ ISR(TIMER1_CAPT_vect) {
 	
 int main(void) {	
 	DDRC   = 0xFF;		// PORTC = output
-	TCCR1A = 0;			// Funksjon for komparatorer (off)
+	
+	/***********************/
+	// best to do these in binary
+	TCCR1A = 0;		// Funksjon for komparatorer (off)
 	TCCR1B = 0xC2;		// Funksjon for capture og prescaler
 	TIMSK  = 0x24;		// Interrupts på capture og overflow
-	sei();				// Enable globalt interrupt
+	/***********************/
+	
+	sei();			// Enable global interrupt
     
-    while (1) {
-			
-			if (freq<400)
+	while (1) {		
+		if (freq<400)
 			PORTC = ~0b00000000;
-			
-			else if(freq<600)		//0,4 - 0,6 kHz
+		else if(freq<600)		//0,4 - 0,6 kHz
 			PORTC = ~0b00000001;
-			
-			else if(freq<700)		//0,6 - 0,7 kHz
-			PORTC = ~0b00000010;
-			
-			else if(freq<800)		//0,7 - 0,8 kHz
-			PORTC = ~0b00000100;
-			
-			else if(freq<900)		//0,8 - 0,9 kHz
-			PORTC = ~0b00001000;
-			
-			else if(freq<1000)		//0,9 - 1,0 kHz
-			PORTC = ~0b00010000;
-			
-			else if(freq<1100)		//1,0 - 1,1 kHz
-			PORTC = ~0b00100000;
-			
-			else if(freq<1200)		//1,1 - 1,2 kHz
-			PORTC = ~0b01000000;
-			
-			//else if(freq<1400)		//1,2 - 1,4 kHz
-			//PORTC = ~0b10000000;
-			
-			else PORTC = ~0b00000000;	//Lys av
+		else if(freq<700)		//0,6 - 0,7 kHz
+			PORTC = ~0b00000010;	
+		else if(freq<800)		//0,7 - 0,8 kHz
+			PORTC = ~0b00000100;	
+		else if(freq<900)		//0,8 - 0,9 kHz
+			PORTC = ~0b00001000;	
+		else if(freq<1000)		//0,9 - 1,0 kHz
+			PORTC = ~0b00010000;	
+		else if(freq<1100)		//1,0 - 1,1 kHz
+			PORTC = ~0b00100000;	
+		else if(freq<1200)		// 1,1 - 1,2 kHz
+			PORTC = ~0b01000000;	
+		//else if(freq<1400)		// 1,2 - 1,4 kHz
+			//PORTC = ~0b10000000;	
+		else PORTC = ~0b00000000;	// Lights off
     };
 }
