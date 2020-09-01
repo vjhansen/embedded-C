@@ -31,18 +31,13 @@ IDP: Atmel Studio 7.
 void enable(){							
 	LCD_PORT &= ~(1 << PIN_ENABLE);	// - Setting Enable to 0.
 	/*
-		PORTC  	= PORTC & ~(1 << PINC.2) --> 0b0000 0x00
-			= 0bxxxx xxxx & ~(01b << y), where y = 0 or 1
-			= 0bxxxx xxxx & [~(01b) or ~(10b)]
-			= 0bxxxx xxxx & [(10b) or (01b)]
-	
+		PORTC  	= PORTC & ~(0b0001 << PINC.2) -- 1 left-shift 2 times --> 1 << 2
+			= 0bxxxx xxxx & ~(0100b) -- flip bits
+			= 0bxxxx xxxx & (1011b)
+				
 			= 0bxxxx xxxx &
-			  0b0000 0010 
-			= 0b0000 00x0
-			
-			= 0bxxxx xxxx &
-			  0b0000 0001
-			= 0b0000 000x
+			  0b1111 1011
+			= 0bxxxx x0xx -- only changing PINC2 since x & 1 = x
 	*/
 	
 	LCD_PORT |=  (1 << PIN_ENABLE);	// - Setting Enable to 1.
@@ -52,7 +47,7 @@ void enable(){
 void LCD_FULL(unsigned char RS, unsigned char RW, unsigned char data){
 	
 	// - Writing the high nibble first
-	LCD_PORT  = (1 << PIN_ENABLE);	// 01 << 0 -> 0x01, 01 << 1 -> 	10 = 0x02				
+	LCD_PORT  = (1 << PIN_ENABLE);				
 	LCD_PORT |= (data&0xF0)|(RS<<PIN_RS)|(RW<<PIN_RW);  // - Masking and obtaining the 4 MSB.
 	
 	// - Toggling Enable-bit to send data.
