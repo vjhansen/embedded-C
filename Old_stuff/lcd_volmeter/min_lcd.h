@@ -28,7 +28,8 @@ IDP: Atmel Studio 7.
 #define ENTRY_MODE 			0b00000110      // - Cursor direction and display shift.
 
 // - Setter opp kommunikasjon med displayet.
-void enable(){							
+void enable()
+{							
 	LCD_PORT &= ~(1 << PIN_ENABLE);	// - Setting Enable to 0.
 	/*
 		PORTC  	= PORTC & ~(0b0001 << PINC.2) -- 1 left-shift 2 times --> 1 << 2
@@ -44,8 +45,8 @@ void enable(){
 }
 
 // - Writing 8-bit to LCD in two 'parts' (2 x 4-bit).
-void LCD_FULL(unsigned char RS, unsigned char RW, unsigned char data){
-	
+void LCD_FULL(unsigned char RS, unsigned char RW, unsigned char data)
+{	
 	// - Writing the high nibble first
 	LCD_PORT  = (1 << PIN_ENABLE);				
 	LCD_PORT |= (data&0xF0)|(RS<<PIN_RS)|(RW<<PIN_RW);  // - Masking and obtaining the 4 MSB.
@@ -60,7 +61,8 @@ void LCD_FULL(unsigned char RS, unsigned char RW, unsigned char data){
 }
 
 // - 4-bit.
-void LCD_HALF(unsigned char RS, unsigned char RW, unsigned char data){
+void LCD_HALF(unsigned char RS, unsigned char RW, unsigned char data)
+{
 	LCD_PORT  = (1<<PIN_ENABLE);		
 	LCD_PORT |= (data&0xF0)|(RS<<PIN_RS)|(RW<<PIN_RW);	// - Henter de 4 MSB
 	
@@ -69,12 +71,14 @@ void LCD_HALF(unsigned char RS, unsigned char RW, unsigned char data){
 }
 
 // - This function determines which row & column the text is placed.
-void set_cursor(char row, char column) {
+void set_cursor(char row, char column) 
+{
 	LCD_FULL(0,0,((0b10000000 + row*16 + column)));		// - Char buffer-base adresse + (rad * chars per rad) + antall kolonner.
 }
 
 // - Print string function.
-void lcd_string(unsigned char row, unsigned char column, char *string) {
+void lcd_string(unsigned char row, unsigned char column, char *string) 
+{
 	set_cursor(row, column);		// - set row and column for text
 	while(*string) {			// - loop through string									
 		LCD_FULL(1, 0, *string++);	// - write to LCD with 'LCD_FULL'.
@@ -83,12 +87,14 @@ void lcd_string(unsigned char row, unsigned char column, char *string) {
 }
 
 // - Clear display.
-void LCD_clear () {
+void LCD_clear () 
+{
 	LCD_FULL(0,0,CLEAR_DISP); _delay_ms(2);		// - Send 'CLEAR DISPLAY' to LCD_FULL.
 }
 
 // - Print number function.
-void LCD_print_numb (unsigned char row, unsigned char column, unsigned int tall) {
+void LCD_print_numb (unsigned char row, unsigned char column, unsigned int tall) 
+{
 	char send_array[4];					// - Setter av et array som holder 4 chars.
 	sprintf(send_array,"%4d", tall);			// - Gir sprinft 4 digits..
 		set_cursor(row, column);			// - ..og angir hvor de skal plasseres.													
@@ -98,8 +104,8 @@ void LCD_print_numb (unsigned char row, unsigned char column, unsigned int tall)
 }
 
 // - This function initializes the display by executing our defined instructions.
-void initialize_display() {
-	
+void initialize_display() 
+{	
 	_delay_ms(40);	 // - Waiting 40 ms to ensure stabilized voltage.
 	
 	LCD_HALF(0,0,FUNCTION_SET_INIT_0);	_delay_ms(2); 	// - Set 8-bit mode.
@@ -107,7 +113,7 @@ void initialize_display() {
 	LCD_HALF(0,0,FUNCTION_SET_INIT_2);	_delay_ms(2);   // - Set 8-bit mode.
 	LCD_HALF(0,0,FUNCTION_SET_INIT_4bit);	_delay_ms(2);   // - Set 4-bit mode.
 		
-	// - Aktiverer alt annet.
+	// - Activate the rest
 	LCD_FULL(0,0,INSTRCT_SET_0);	_delay_us(28);   // - Function set 0.
 	LCD_FULL(0,0,BIAS_SET);		_delay_us(28);   // - Bias set.
 	LCD_FULL(0,0,POWER_CONTROL);	_delay_us(28);   // - Power control.
