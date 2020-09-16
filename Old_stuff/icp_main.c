@@ -15,7 +15,8 @@ ISR(TIMER1_OVF_vect) {
 	++ov_counter;
 }
 
-ISR(TIMER1_CAPT_vect) { 	
+ISR(TIMER1_CAPT_vect) 
+{ 	
 	ending_edge = ICR1L;
 	ending_edge = (256*ICR1H)+ending_edge;
 	klokke = (unsigned long)(ending_edge+(ov_counter*0xFFFF)-starting_edge);
