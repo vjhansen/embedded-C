@@ -21,14 +21,16 @@ volatile unsigned int min = 0;
 #define rad2 1
 
 // ADC Conversion Complete Interrupt.
-ISR(ADC_vect) {
+ISR(ADC_vect) 
+{
     potmeter_inn = ADCW;
     milli_volt = (((unsigned long)potmeter_inn*5000)/1023);	    // - Typecaster og regner ut 1000 x spenningen.
     ADCSRA = ADCSRA|0x40;	// - Starter ny konvertering.
 }
 
 
-int main() {
+int main() 
+{
 	PORTC  = 0xFF;		// - PORTC is output.
 	
 	/***********************/
