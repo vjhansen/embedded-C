@@ -17,20 +17,21 @@
 #define lcd_rs_ddr  DDRC
 #define lcd_rs_pin 4
 
-// Inkluderer delay-funksjoner, kan utelates dersom inkludert andre steder:
 #define F_CPU 14745600
 #include <util/delay.h>
 
 //Enable-signal ------------------------------------------------------------------------------
-void strobe(void){
+void strobe(void) 
+{
 	//_delay_us(1);          // for fast clk! Progget for 14.745Mhz
 	lcd_clk_port &= ~(1 << lcd_clk_pin);
 	//_delay_us(1);
 	lcd_clk_port |= (1 << lcd_clk_pin);
 }
 
-//Sette instruksjoner ut i en SPI-struktur ---------------------------------------------------
-void lcdinst(unsigned char txb, unsigned char RS){
+// Set instruksjoner ut i en SPI-struktur ---------------------------------------------------
+void lcdinst(unsigned char txb, unsigned char RS)
+{
 	lcd_csb_port &= ~(1 << lcd_csb_pin);
 	lcd_rs_port &= ~(1 << lcd_rs_pin);
 	lcd_rs_port |= (RS << lcd_rs_pin);
@@ -55,23 +56,27 @@ void lcdinst(unsigned char txb, unsigned char RS){
 	lcd_csb_port|=(1<<lcd_csb_pin);
 }
 
-//funksjon som brukes for å sette cg-ram-adresse mtp å definere egne tegn
-void cgramaddressset(unsigned char cgaddress, unsigned char line){
+// set cg-ram-adress - define own egne chars
+void cgramaddressset(unsigned char cgaddress, unsigned char line) 
+{
 	lcdinst(cgaddress*8+line+64,0);    _delay_us(40);
 }
 
-//funksjon for å sette cursoren på i displayet
-void lcd_cursoron(void) {
+// set cursor in display
+void lcd_cursoron(void) 
+{
 	lcdinst(0b00001110, 0);    _delay_us(40);
 }
 
-//og cursor av....
-void lcd_cursoroff(void) {
+// cursor off
+void lcd_cursoroff(void) 
+{
 	lcdinst(0b00001100, 0);    _delay_us(40);
 }
 
-//en vanvittig lang funksjon for å definere cg-ram'en. Kan gjøres mye enklere.
-void init_cgram(void){
+// define cg-ram
+void init_cgram(void)
+{
 	int cgaddress,line;
 	for (cgaddress=0; cgaddress < 8; cgaddress=cgaddress+1) {
 		for (line=0; line<8; line=line+1) {
@@ -139,7 +144,7 @@ void init_cgram(void){
 					default: break;
 				};
 				case 5:
-				switch(line){       // nej - surtrut
+				switch(line){       // :(
 					case 0: lcdinst(0b00000000,1);    _delay_us(40);      break;
 					case 1: lcdinst(0b00001010,1);    _delay_us(40);      break;
 					case 2: lcdinst(0b00001010,1);    _delay_us(40);      break;
@@ -151,7 +156,7 @@ void init_cgram(void){
 					default: break;
 				};
 				case 6:
-				switch(line){       // jej - smiley
+				switch(line){       // :)
 					case 0: lcdinst(0b00000000,1);    _delay_us(40);      break;
 					case 1: lcdinst(0b00001010,1);    _delay_us(40);      break;
 					case 2: lcdinst(0b00001010,1);    _delay_us(40);      break;
@@ -180,8 +185,9 @@ void init_cgram(void){
 	};
 }
 
-//init lcd, setter rette pinner ut osv...
-void init_lcd(void){
+// init lcd, setter rette pinner ut osv...
+void init_lcd(void)
+{
 	//_delay_ms(20);
 	lcd_rs_ddr  |= (1 << lcd_rs_pin);
 	lcd_clk_ddr |= (1 << lcd_clk_pin);
@@ -207,8 +213,9 @@ void init_lcd(void){
 	init_cgram();
 }
 
-//setter cursoren på rett sted, row kan være 0, 1 eller 2, col 0->15
-void dotpos(int row, int col){  //sets marker ready to write on row,col
+// setter cursoren på rett sted, row kan være 0, 1 eller 2, col 0->15
+void dotpos(int row, int col) //sets marker ready to write on row,col
+{  
 	unsigned char instr=0;
 	switch(row){
 		case 0: instr=0x80; break;
@@ -219,9 +226,10 @@ void dotpos(int row, int col){  //sets marker ready to write on row,col
 }
 
 //funksjon som skriver ut en tekst på plassen [row,col]
-void lcd_printline (char row, char col, char *a){
+void lcd_printline (char row, char col, char *a)
+{
 	dotpos(row,col);
-	while(*a){
+	while(*a) {
 		if     (*a=='Æ') lcdinst(0b10010010,1);
 		else if(*a=='æ') lcdinst(0b10010001,1);
 		else if(*a=='Ø') lcdinst(0b11101110,1);
@@ -236,7 +244,8 @@ void lcd_printline (char row, char col, char *a){
 }
 
 //funksjon for å skrive ut en og en bokstav
-void lcd_printchar (unsigned char a){
+void lcd_printchar (unsigned char a) 
+{
 	if(a=='Æ')	lcdinst(0b10010010,1);
 	else if(a=='æ') lcdinst(0b10010001,1);
 	else if(a=='Ø') lcdinst(0b11101110,1);
@@ -248,16 +257,17 @@ void lcd_printchar (unsigned char a){
 }
 
 //funksjon for å skrive ut tall på plass [row, col]. Tallet har d siffer, og tallet er nb
-void lcd_printnb(char row, char col, char d, long int nb){
+void lcd_printnb(char row, char col, char d, long int nb)
+{
 	char tobeprinted;
 	char i;
 	long int fact;
 	dotpos(row,col);
 	while(d > 0) {
 		fact=1;
-		for(i=1;i<d;i++)fact=fact*10;
+		for(i=1; i<d; i++)fact=fact*10;
 		tobeprinted=nb/fact;
-		lcdinst(tobeprinted+48,1); _delay_us(43);
+		lcdinst(tobeprinted+48, 1); _delay_us(43);
 		nb=nb-(tobeprinted*fact);
 		d--;
 	}
