@@ -38,34 +38,38 @@ unsigned int milli_volt;
 unsigned int freq;
 
 // Interrupt når sending av data er ferdig
-ISR(USART0_TX_vect) {   
-    if(sendt_data[cnt]) {
-            UDR0 = sendt_data[cnt++];
-    }
+ISR(USART0_TX_vect) 
+{   
+    if(sendt_data[cnt])
+    	UDR0 = sendt_data[cnt++];
 }
 
 // Interrupt når mottak av data er ferdig
-ISR(USART0_RX_vect) {
+ISR(USART0_RX_vect) 
+{
     if(mottatt_data[byte-2] == 'R' && mottatt_data[byte-1] == linefeed) {
         byte  = 0;
         modus = disp_kort;
-    }
-    else mottatt_data[byte++] = UDR0;
+    } else
+	mottatt_data[byte++] = UDR0;
 }
 
 // Interrupt ADC 
-ISR(ADC_vect) {
-    ADC_data = ADCW;					    // - hold ADCW value
+ISR(ADC_vect) 
+{
+    ADC_data = ADCW; // - hold ADCW value
     milli_volt = (((unsigned long)ADC_data * 5000)/1023);   // - Regner ut 1000x spenningen
     ADCSRA = ADCSRA|0x40; //0b 01000000   // - Starter ny konvertering
 }
 
 // Interrupt Timer2 
-ISR(TIMER2_OVF_vect) {
+ISR(TIMER2_OVF_vect) 
+{
     OCR2A = OCR2A;
 }
  
-int main(void) {
+int main(void) 
+{
 	DDRB   = 0b11110000;
 	DDRC   = 0b11110000;
 	DDRD   = 0b00000010;	// - Output PD1(TXD)
@@ -92,10 +96,12 @@ int main(void) {
 while (1) {
 	
     /**** do nothing ****/
-    while(modus == idle) {
+    while(modus == idle) 
+    {
     }
     /**** Sender data til displaykort ****/
-    while(modus == disp_kort) {
+    while(modus == disp_kort) 
+    {
 		 
     // A) - Behandler data for tekstlinje 1
         if(mottatt_data[rx_count] = 'A') {
@@ -183,7 +189,8 @@ while (1) {
 }
 	
 /**** Sender data til program på PC ****/
-while(modus == PC) {
+while(modus == PC) 
+{
 	while(sendt_data[tx_count]) {
         	sendt_data[tx_count++] = 0;
     	}
