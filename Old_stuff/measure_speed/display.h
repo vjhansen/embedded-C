@@ -1,4 +1,5 @@
-unsigned char ledcode(unsigned char digit){
+unsigned char ledcode(unsigned char digit)
+{
 	if (digit==0)
 		return 0b11101110;
 	else if(digit==1)
