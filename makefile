@@ -1,13 +1,14 @@
 # ls -a /dev/tty*
-# PORT 				= /dev/cu.usbmodemBUR1846711382
-PORT 					= /dev/tty.usbmodem14201
-FILENAME 		= main
-#DEVICE 			= atmega2560
-DEVICE 			= atmega328p
-PROGRAMMER 	= arduino
 
+# PORT 				= /dev/cu.usbmodemBUR1846711382
+PORT 					= /dev/tty.usbmodem14101
+FILENAME 		= main
+DEVICE 			= atmega2560
+#DEVICE 			= atmega328p
+#PROGRAMMER 	= arduino
+PROGRAMMER 		= wiring
 BAUD 				= 115200
-COMPILE 		= avr-gcc -Wall -Os -mmcu=$(DEVICE)
+COMPILE 		= avr-gcc -Wall -pedantic -mmcu=$(DEVICE) -F_CPU=1000000UL -g -Os
 
 
 default: compile upload clean
@@ -19,9 +20,8 @@ compile:
 	avr-size --format=avr --mcu=$(DEVICE) $(FILENAME).elf
 
 upload:
-	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(PORT) -b $(BAUD) -U flash:w:$(FILENAME).hex:i
+	avrdude -v -F -V -D -p $(DEVICE) -c $(PROGRAMMER) -P $(PORT) -b $(BAUD) -U flash:w:$(FILENAME).hex:i
 
 clean:
 	rm $(FILENAME).o
 	rm $(FILENAME).elf
-	#rm $(FILENAME).h
