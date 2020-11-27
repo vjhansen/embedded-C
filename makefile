@@ -1,15 +1,19 @@
 # ls -a /dev/tty*
 
-# PORT 				= /dev/cu.usbmodemBUR1846711382
-PORT 					= /dev/tty.usbmodem14201
+#PORT 				= /dev/cu.usbmodemBUR1846711382
+#PORT 				= /dev/tty.usbmodem14201
+PORT 					= /dev/ttyACM0 	
+
 FILENAME 		= main
 DEVICE 			= atmega2560
 #DEVICE 			= atmega328p
+
 #PROGRAMMER 	= arduino
 PROGRAMMER 		= wiring
+
 BAUD 				= 115200
 COMPILE 		= avr-gcc -mmcu=$(DEVICE)
-
+# some fuses
 # E: 0xFD, H: 0x50, L: 0x62
 default: compile upload clean
 
