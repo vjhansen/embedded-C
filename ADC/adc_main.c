@@ -13,7 +13,6 @@ volatile unsigned char hyperText[32];
 #define LF  0x0A // Line feed
 #define SPACE 0x20
 
-unsigned int Ctemp;
 
 void USART0_SETUP_9600_BAUD();
 void USART0_TX_SingleByte(unsigned char cByte);
@@ -39,19 +38,13 @@ int main()
     ADCSRA |= 1<<ADSC; 
     while(1)
     {
-        if (sample_flag == 1) {
-            float T;
-            T = (float)analog_temp / THERMISTORNOMINAL;     // (R/Ro)
-            T = log(T);                  // ln(R/Ro)
-            T /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
-            T += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
-            T = 1.0 / T;                 // Invert
-            T -= 273.15;                         // convert absolute temp to C
-            sprintf(hyperText, "%d", (int)T);
-            TCNT1H = 0x00;
-            TCNT1L = 0x00; 
-            sample_flag = 0;
-        }   
+        /* if (sample_flag == 1) { */
+
+        /*     T = (float)analog_temp / THERMISTORNOMINAL;  */
+        /*     TCNT1H = 0x00; */
+        /*     TCNT1L = 0x00;  */
+        /*     sample_flag = 0; */
+        /* }    */
     }
 }
 
@@ -59,20 +52,23 @@ int main()
 void init_adc ()
 {
     // ADC Multiplexer Selection Register
-    ADMUX = (1<<REFS0); // AVCC with external capacitor at AREF pin,  ADC0 = PF0
+    ADMUX = (1<<REFS0 | 1<< ADLAR ); // AVCC with external capacitor at AREF pin,  ADC0 = PF0
 
-  // ADLAR: ADC Left Adjust Result
-  //  0 = ADCH (high) contains bit 1 = output bit 9, bit 0 = output bit 8
-  //    ADCL (low) contains output bits 7 through 0
-  //  1 = ADCH (high) contains bits 9 through 2
-  //      ADCL (low) contains bit 7 = output bit 1, bit 6 = output bit 0
+    // ADLAR: ADC Left Adjust Result
+    //  0 = ADCH (high) contains bit 1 = output bit 9, bit 0 = output bit 8
+    //    ADCL (low) contains output bits 7 through 0
+    //  1 = ADCH (high) contains bits 9 through 2
+    //      ADCL (low) contains bit 7 = output bit 1, bit 6 = output bit 0
     // see datasheet p. 286
 
     
-    ADCSRA = (1<<ADEN | 1<<ADIE | 1<<ADPS2);
-// ADC Enable, start conversion, auto trigger, division factor = 32.
+    ADCSRA = (1<<ADEN | 1<<ADIE | 1<<ADPS2 | 1<<ADPS1 | 1<<ADPS0);
+    // ADC Enable, start conversion, auto trigger, division factor = 128.
+    // we have  a 16 MHz clk, the ADC requires a clk freq. in the range [50, 200] kHz.
+    // -> 16M/200k = 80, the next highest division factor is 128.
+    
    
-// When this bit is written to one, Auto Triggering of the ADC is enabled. The ADC will start a conversion on a positive edge of the selected trigger signal. 
+    // When this bit is written to one, Auto Triggering of the ADC is enabled. The ADC will start a conversion on a positive edge of the selected trigger signal. 
     ADCSRB = 0x00;
 
     // Digital Input Disable Register 
@@ -83,7 +79,9 @@ void init_adc ()
 ISR(ADC_vect)
 {
     // analog_temp = ADCL; // right shift
-    analog_temp |= ADCH<<8 | ADCL;
+    analog_temp = ADCH;
+    sprintf(hyperText, "%d", analog_temp);
+
     ADCSRA |= 1<<ADSC;
 }
 
@@ -91,16 +89,14 @@ ISR(ADC_vect)
  ISR(USART0_RX_vect) // USART Receive-Complete Interrupt Handler
 {
     char cData = UDR0;
-    // set new passcode
     if (cData == 'p')
     {
         USART0_TX_String("\nTemp: \r\n");
         USART0_TX_String(hyperText);
     }
-    // done setting passcode
     else if (cData == 'q')
     {
-        USART0_TX_String("\nPasscode set\r\n");
+        USART0_TX_String("\n q \r\n");
     }
 }
 
