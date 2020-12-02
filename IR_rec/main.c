@@ -48,18 +48,17 @@ void InitialiseGeneral();
 void timer1();
 void init_timer4();
 
-
 // vars for ultrasonic sensor
 volatile unsigned int elapsedTime, transmitTime;
 static unsigned char dataCnt = 0;
 volatile unsigned char timer3_cnt, elapseCnt = 0;
-volatile unsigned int  spaceTime, startTime, endTime;
+volatile float spaceTime, startTime, endTime;
 volatile unsigned char rising, falling = 0;
 
 unsigned char state = WAIT;
 
-unsigned char textToWrite[32];
-unsigned char receivedData[32];
+static char textToWrite[32]  = {'\0'};
+static char receivedData[10] = {'\0'};
 
 // - - - - - - - - - - - - - - - - -
 int main()
@@ -71,13 +70,19 @@ int main()
     
     while(1)
     {
+        /* if (strlen(receivedData > 6)) { */
+        /*     USART0_TX_String(receivedData); */
+        /*     USART0_TX_String("\n"); */
+        /* } */
+        
         switch (state)
         {
 // - - - - - - - - - - - - - - - - -
         case WAIT:
+            for (int i = 0; i < 10; ++i) { // clear output
+                receivedData[i] = '\0';
+            }
             if (falling == 1) {
-                // ok
-                _delay_ms(100);
                 TCNT1H = 0x00;  // Timer/Counter count/value registers (16 bit)
                 TCNT1L = 0x00;
                 _delay_ms(31.5);
@@ -88,20 +93,26 @@ int main()
         case CHECK:
             if (falling == 1)
             {
-                if (spaceTime <= 563)
+                /* Logical '0' – a 562.5µs pulse burst followed by a 562.5µs space, 
+                   with a total transmit time of 1.125ms */
+
+                /* Logical '1' – a 562.5µs pulse burst followed by a 1.6875ms space,
+                   with a total transmit time of 2.25ms */
+
+                // Logic 0
+                if (spaceTime <= 564 && spaceTime > 562)
                 {
-                    // USART0_TX_String("logic 0 \n\r");
                     receivedData[dataCnt] = '0';
                     dataCnt++;
                 }
-                else if (spaceTime > 563)
+                // Logic 1
+                else if (spaceTime > 1686 && spaceTime <= 1688) // 3*563
                 {
-                    //  USART0_TX_String("logic 1 \n\r");
                     receivedData[dataCnt] = '1';
                     dataCnt++;
                 }
             }
-            else if (dataCnt == 8)
+            else if (dataCnt > 7)
             {
                 dataCnt = 0;
                 state = DONE;
@@ -109,14 +120,11 @@ int main()
             break;
 // - - - - - - - - - - - - - - - - - 
         case DONE:
-            for (int i = 0; i < 8; i++)
+            if (elapseCnt == 13)
             {
-                USART0_TX_SingleByte(receivedData[i]);
+                // USART0_TX_String("complete \n\r");
+                state=WAIT;
             }
-           
-            _delay_ms(58.5);
-            USART0_TX_String("complete \n\r");
-            state=WAIT;
             break;
         default:
             break;
@@ -153,8 +161,6 @@ ISR (TIMER1_COMPA_vect)
     // 40.5 ms - 9 = 31.5 ms
     // 67.5 ms - 9 = 58.5 ms
     elapseCnt++;
-    elapsedTime = elapseCnt*4500;
-
     if (elapseCnt > 14)
     {
         elapseCnt = 0;
@@ -181,8 +187,6 @@ void init_timer4()
 }
 
 // get space time, period from falling edge until rising edge
-
-
 
 /* 
    When a change of the logic level (an event) occurs on the Input Capture Pin (ICPn), 
@@ -214,7 +218,7 @@ ISR (TIMER4_CAPT_vect)
         falling = 0;
         endTime = ICR4;
         spaceTime = endTime-startTime;
-        sprintf(textToWrite, "%d" , spaceTime);
+        //   sprintf(textToWrite, "%f" , spaceTime);
     }
     else  // Falling edge
     {
@@ -269,3 +273,26 @@ void USART0_TX_String(char* sData)
         USART0_TX_SingleByte(LF);
     }
 }
+
+
+/* ISR(USART0_RX_vect) // USART Receive-Complete Interrupt Handler */
+/* { */
+/*     char cData = UDR0; */
+/*     if (cData == 'd') */
+/*     { */
+/*         /\* for (int i = 0; i < 8; i++) *\/ */
+/*         /\* { *\/ */
+/*         /\*     USART0_TX_SingleByte(receivedData[i]); *\/ */
+/*         /\* } *\/ */
+       
+
+/*     } */
+/* } */
+
+/* void decodeIR(char *IRdata) */
+/* { */
+/*     switch */
+// if IRdata = 
+// -> 8 on remote
+
+/* } */
