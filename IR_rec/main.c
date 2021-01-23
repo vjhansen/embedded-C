@@ -273,26 +273,3 @@ void USART0_TX_String(char* sData)
         USART0_TX_SingleByte(LF);
     }
 }
-
-
-/* ISR(USART0_RX_vect) // USART Receive-Complete Interrupt Handler */
-/* { */
-/*     char cData = UDR0; */
-/*     if (cData == 'd') */
-/*     { */
-/*         /\* for (int i = 0; i < 8; i++) *\/ */
-/*         /\* { *\/ */
-/*         /\*     USART0_TX_SingleByte(receivedData[i]); *\/ */
-/*         /\* } *\/ */
-       
-
-/*     } */
-/* } */
-
-/* void decodeIR(char *IRdata) */
-/* { */
-/*     switch */
-// if IRdata = 
-// -> 8 on remote
-
-/* } */
